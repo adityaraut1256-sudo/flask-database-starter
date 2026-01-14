@@ -17,7 +17,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy  # Import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key'
+app.secret_key = 'forvanram'
 
 # =============================================================================
 # DATABASE CONFIGURATION
@@ -41,7 +41,7 @@ class Course(db.Model):  # Course table
     students = db.relationship('Student', backref='course', lazy=True)
 
     def __repr__(self):  # How to display this object
-        return f'<Course {self.name}>'
+        return f'<Course: name = {self.name}: ID = {self.id}>'
 
 
 class Student(db.Model):  # Student table
@@ -65,12 +65,16 @@ def index():
     # OLD WAY (raw SQL): conn.execute('SELECT * FROM students').fetchall()
     # NEW WAY (ORM):
     students = Student.query.all()  # Get all students
+    print(students)
+    print(type(students))
     return render_template('index.html', students=students)
 
 
 @app.route('/courses')
 def courses():
     all_courses = Course.query.all()  # Get all courses
+    print(all_courses)
+    print(all_courses[0])
     return render_template('courses.html', courses=all_courses)
 
 
@@ -125,7 +129,9 @@ def delete_student(id):
 
 @app.route('/add-course', methods=['GET', 'POST'])
 def add_course():
+    print(request.method)
     if request.method == 'POST':
+        print("------I AM INSIDE POST------")
         name = request.form['name']
         description = request.form.get('description', '')  # Optional field
 
