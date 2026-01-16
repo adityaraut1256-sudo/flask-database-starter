@@ -107,6 +107,7 @@ def edit_student(id):
     conn.close()
     return render_template('edit.html', student=student)
 
+#other opretions
 
 # =============================================================================
 # DELETE - Remove student
