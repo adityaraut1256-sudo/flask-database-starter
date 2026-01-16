@@ -108,6 +108,7 @@ def edit_student(id):
     return render_template('edit.html', student=student)
 
 #other opretions
+#delete_student
 
 # =============================================================================
 # DELETE - Remove student
